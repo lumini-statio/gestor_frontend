@@ -40,7 +40,7 @@ const EditMesPage = () => {
     setState((prev)=>(
         {
           ...prev,
-          [name]: parseFloat(value)
+          [name]: parseFloat(value) || 0
         }
     ))
   }
@@ -63,9 +63,29 @@ const EditMesPage = () => {
   };
 
   useEffect(() => {
-    const gastos = state.resultado - (state.agua + state.gas + state.luz + state.minimoComida + state.alquiler + state.expensas + state.wifi);
-    setState((prev) => ({ ...prev, resto: parseFloat(gastos) }));
-  }, [state.resultado, state.gas, state.luz, state.agua, state.minimoComida, state.expensas, state.alquiler, state.wifi]);
+    const numericResultado = parseFloat(state.resultado) || 0;
+    const numericAgua = parseFloat(state.gasto_agua) || 0;
+    const numericGas = parseFloat(state.gasto_gas) || 0;
+    const numericLuz = parseFloat(state.gasto_luz) || 0;
+    const numericComida = parseFloat(state.gasto_comida) || 0;
+    const numericExpensas = parseFloat(state.expensas) || 0;
+    const numericAlquiler = parseFloat(state.alquiler) || 0;
+    const numericWifi = parseFloat(state.wifi) || 0;
+  
+    if (!isNaN(numericResultado) &&
+        !isNaN(numericAgua) &&
+        !isNaN(numericGas) &&
+        !isNaN(numericLuz) &&
+        !isNaN(numericComida) &&
+        !isNaN(numericExpensas) &&
+        !isNaN(numericAlquiler) &&
+        !isNaN(numericWifi)) {
+  
+      const gastos = numericResultado - (numericAgua + numericGas + numericLuz + numericComida + numericExpensas + numericAlquiler + numericWifi);
+      setState((prev) => ({ ...prev, resto: parseFloat(gastos) }));
+    }
+        console.log(state)
+  }, [state.resultado, state.gasto_gas, state.gasto_luz, state.gasto_agua, state.gasto_comida, state.expensas, state.alquiler, state.wifi]);
 
   return (
     <div className='card-2'>
@@ -173,7 +193,7 @@ const EditMesPage = () => {
             />
           </div>
             <dir>
-                <h4>Resto: {state.resto}</h4>
+                <h4>Resto: {state.resto || 0}</h4>
             </dir>
         </div>
 
