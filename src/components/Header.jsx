@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 const Header = () => {
   const navigate = useNavigate()
   return (
-    <div className='header navbar navbar-expand-lg navbar-light rounded bg-light'>
+    <div className='header navbar navbar-expand-lg rounded'>
           <div className='link navbar-brand' onClick={()=>{
             navigate('/')
           }}>

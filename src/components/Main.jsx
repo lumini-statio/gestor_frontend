@@ -94,7 +94,6 @@ const Main = () => {
             onChange={handleInputChange}
           />
         </div>
-        <p>(Sueldo Total: {state.resultado})</p>
 
         <div className="fijos">
           <h2>Gastos Fijos</h2>
@@ -109,7 +108,6 @@ const Main = () => {
               onChange={handleInputChange}
             />
           </div>
-          <p>valor anterior: {state.gas} </p>
 
           <div className="luz">
             <label>Luz</label>
@@ -179,12 +177,12 @@ const Main = () => {
 
         </div>
 
-        <div className="resto">
+        <div className="container resto">
           <h3>Resto</h3>
-          <h4> {state.resto} </h4>
+          <h2> {state.resto} </h2>
         </div>
-        <div>
-          <button type='submit' className='btn btn-success'>Crear</button>
+        <div className='container'>
+          <button type='submit' className='btn btn-success px-5'>Crear</button>
         </div>
         
       </form>
