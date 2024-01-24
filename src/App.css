@@ -70,6 +70,23 @@ body {
 
 .link-text {
     display: inline;
+    position: relative;
+}
+
+.link-text::before {
+    content: '';
+    position: absolute;
+    border-bottom: 2px solid #69879a;
+    width: 20%;
+    bottom: -5px;
+    left: 0;
+    transition: all .3s;
+    opacity: 0;
+}
+
+.link-text:hover::before {
+    width: 100%;
+    opacity: 1;
 }
 
 .link-container {
@@ -99,4 +116,10 @@ button {
 .resto {
     display: flex;
     flex-direction: column;
+}
+
+.centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -9,7 +9,7 @@ const Header = () => {
           <div className='link navbar-brand' onClick={()=>{
             navigate('/')
           }}>
-          <h3>Home</h3>
+          <h3 className='link-text'>Home</h3>
           </div>
 
           <div className='link' onClick={()=>{

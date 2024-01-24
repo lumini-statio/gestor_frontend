@@ -68,7 +68,8 @@ const EditMesPage = () => {
   }, [state.resultado, state.gas, state.luz, state.agua, state.minimoComida, state.expensas, state.alquiler, state.wifi]);
 
   return (
-    <div className='card-2'>
+    <div>
+      <div className='card-2'>
       <h1>Editar Gestion Mensual</h1>
       <form onSubmit={handleSubmit}>
       <div className="nombre-mes">
@@ -172,15 +173,26 @@ const EditMesPage = () => {
               onChange={handleInputChange}
             />
           </div>
-            <dir>
+            <dir className='centrado'>
                 <h4>Resto: {state.resto}</h4>
             </dir>
         </div>
 
-        <div className='container'>
+        <div className='container centrado'>
           <button type='submit' className='btn btn-success'>Actualizar</button>
         </div>
       </form>
+      </div>
+      
+      <div className="card-2">
+        <div>
+
+        </div>
+
+        <div></div>
+
+        <div></div>
+      </div>
     </div>
   );
 };

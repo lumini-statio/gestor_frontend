@@ -1,0 +1,9 @@
+import axios from 'axios';
+
+const gastosApi = axios.create({
+    baseURL: 'http://localhost:8000/api/v1/gastos/'
+})
+
+export const getGasto = (gastoId) => gastosApi.get(`/${gastoId}/`)
+
+export const deleteGasto = (gastoId) => gastosApi.delete(`/${gastoId}/`)
