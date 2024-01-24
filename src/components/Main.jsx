@@ -177,11 +177,11 @@ const Main = () => {
 
         </div>
 
-        <div className="resto centrado">
+        <div className="container resto centrado">
           <h3>Resto</h3>
-          <h4> {state.resto} </h4>
+          <h2> {state.resto} </h2>
         </div>
-        <div className='centrado'>
+        <div className='container centrado'>
           <button type='submit' className='btn btn-success'>Crear</button>
         </div>
         

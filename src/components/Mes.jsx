@@ -51,8 +51,9 @@ const Mes = () => {
       {
         params.id && 
         <div className="contenedor centrado">
-          <button className='btn btn-danger' onClick={borrarMes}> Borrar </button>
-          <button className='btn btn-success' onClick={()=>{
+          <button className='btn btn-danger px-5' onClick={borrarMes}> Borrar </button>
+          <button className='btn btn-success px-5' onClick={()=>{
+
             navigate(`/edit/${params.id}`
           )}}> Editar </button>
         </div>
