@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getMes, actualizarMes } from '../api/meses.api';
+import addImg from '../../public/add.png'
+import { getAllGastos } from '../api/gastos.api';
 
 const EditMesPage = () => {
   const [state, setState] = useState({
@@ -17,6 +19,8 @@ const EditMesPage = () => {
     wifi: 0,
   });
 
+  const [gastos, setGastos] = useState([])
+
   const navigate = useNavigate();
   const params = useParams();
 
@@ -32,7 +36,20 @@ const EditMesPage = () => {
         }
       }
     }
+    async function cargarGastos() {
+      if (params.id) {
+        try {
+          const res = await getAllGastos()
+          setGastos(res.data)
+          console.log(res.data)
+        }
+        catch (error) {
+          console.error('Error al cargar los gastos', error)
+        }
+      }
+    }
     cargarMes();
+    cargarGastos();
   }, []);
 
   const handleInputChange=(e)=>{
@@ -205,13 +222,32 @@ const EditMesPage = () => {
       </div>
       
       <div className="card-2">
+        <div className='centrado agregar-titulo'>
+          <h2>Otros Gastos</h2>
+          <img src={addImg} alt="añadir gasto" className='img-add' onClick={()=>{navigate(`/mes/${params.id}/crear-gasto`)}}/>
+        </div>
+
+        <div className='gasto-container'>
+          <div className='listado-gastos'>
+            {
+              gastos.map(gasto => (
+                <div className='card-3 card-container' key={gasto.id}>
+                    <div>
+                      <h6> {gasto.nombre} </h6>
+                      <h6> ${gasto.cantidad} </h6>
+                    </div>
+                    <div>
+                      
+                    </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
         <div>
 
         </div>
-
-        <div></div>
-
-        <div></div>
       </div>
     </div>
   );

@@ -45,36 +45,8 @@ body {
 }
 
 .card-container {
-    overflow: hidden; /* Ocultamos el contenido que sale de la tarjeta */
+    overflow: hidden;
 }
-
-.card .inner {
-    position: relative; /* Agregamos posición relativa */
-    z-index: 1; /* Aseguramos que el contenido tenga un índice de apilamiento superior */
-}
-
-.blob {
-    position: absolute; /* Cambiamos a posición absoluta */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #d0d6fa;
-    opacity: 0;
-    filter: blur(40px);
-    z-index: 0;
-    transition: opacity 300ms linear;
-}
-
-.card:hover .blob {
-    opacity: 1;
-}
-
-.fakeblob {
-    visibility: hidden;
-    z-index: -1;
-    height: 100%;
-  }
 
 .card-2 {
     background: #f0f0f0;
@@ -154,4 +126,43 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.agregar-titulo img {
+    width: 9%;
+    height: 9%;
+    cursor: pointer;
+}
+
+.gasto-container {
+    background: #fff;
+    width: 70%;
+    height: 500px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listado-gastos {
+    margin: 5px;
+    height: 95%;
+    width: 95%;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.card-3 {
+    background: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+}
+
+.card-3 h6 {
+    display: inline;
 }
