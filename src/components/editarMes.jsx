@@ -19,7 +19,7 @@ const EditMesPage = () => {
     alquiler: 0,
     wifi: 0,
   });
-  const [gastosTotales, setGastosTotales] = useState()
+  const [gastosTotales, setGastosTotales] = useState(0)
   const [gastos, setGastos] = useState([])
   const [gastosDelMes, setGastosDelMes] = useState([])
   const navigate = useNavigate();
@@ -43,9 +43,11 @@ const EditMesPage = () => {
           const res = await getAllGastos();
           console.log('res', res)
           const gastosDelMes = res.data.filter((gasto) => gasto.mes == params.id);
-          console.log('params.id',params.id)
           setGastosDelMes(gastosDelMes);
-          console.log(gastosDelMes);
+          for (let i = 0; i < gastosDelMes.length; i++) {
+            totalGastos += parseFloat(gastosDelMes[i].cantidad);
+            setGastosTotales(totalGastos)
+          }
         } catch (error) {
           console.error('Error al cargar los gastos', error);
         }
@@ -103,7 +105,7 @@ const EditMesPage = () => {
         !isNaN(numericWifi)) {
   
       const gastos = numericResultado - (numericAgua + numericGas + numericLuz + numericComida + numericExpensas + numericAlquiler + numericWifi);
-      setState((prev) => ({ ...prev, resto: parseFloat(gastos) }));
+      setState((prev) => ({ ...prev, resto: parseFloat(gastos) - gastosTotales}));
     }
         console.log(state)
   }, [state.resultado, state.gasto_gas, state.gasto_luz, state.gasto_agua, state.gasto_comida, state.expensas, state.alquiler, state.wifi]);
