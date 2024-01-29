@@ -144,6 +144,17 @@ button {
     align-items: center;
 }
 
+.gasto-container-2 {
+    background: #fff;
+    width: 70%;
+    height: 200px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .listado-gastos {
     margin: 5px;
     height: 95%;
@@ -165,4 +176,23 @@ button {
 
 .card-3 h6 {
     display: inline;
+}
+
+.felx-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.flex-container div {
+    display: inline;
+}
+
+.flex-container .delete img {
+    justify-content: end;
+    align-items: end;
+}
+
+.delete {
+    cursor: pointer;
 }

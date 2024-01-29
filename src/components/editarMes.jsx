@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getMes, actualizarMes } from '../api/meses.api';
-import addImg from '../../public/add.png'
+import addImg from '../../src/img/add.png';
+import deleteGasto from '../../src/img/delete.png';
 import { getAllGastos } from '../api/gastos.api';
 
 const EditMesPage = () => {
@@ -18,9 +19,9 @@ const EditMesPage = () => {
     alquiler: 0,
     wifi: 0,
   });
-
+  const [gastosTotales, setGastosTotales] = useState()
   const [gastos, setGastos] = useState([])
-
+  const [gastosDelMes, setGastosDelMes] = useState([])
   const navigate = useNavigate();
   const params = useParams();
 
@@ -39,17 +40,20 @@ const EditMesPage = () => {
     async function cargarGastos() {
       if (params.id) {
         try {
-          const res = await getAllGastos()
-          setGastos(res.data)
-          console.log(res.data)
-        }
-        catch (error) {
-          console.error('Error al cargar los gastos', error)
+          const res = await getAllGastos();
+          console.log('res', res)
+          const gastosDelMes = res.data.filter((gasto) => gasto.mes == params.id);
+          console.log('params.id',params.id)
+          setGastosDelMes(gastosDelMes);
+          console.log(gastosDelMes);
+        } catch (error) {
+          console.error('Error al cargar los gastos', error);
         }
       }
     }
     cargarMes();
     cargarGastos();
+    console.log(gastosDelMes)
   }, []);
 
   const handleInputChange=(e)=>{
@@ -107,118 +111,118 @@ const EditMesPage = () => {
   return (
     <div>
       <div className='card-2'>
-      <h1>Editar Gestion Mensual</h1>
-      <form onSubmit={handleSubmit}>
-      <div className="nombre-mes">
-          <h5>Mes</h5>
-          <input
-            type="text"
-            className='form-control'
-            name="nombre"
-            value={state.nombre}
-            onChange={handleNombreChange}
-          />
-        </div>
-
-        <div className="total">
-          <h5>Sueldo</h5>
-          <input
-            type="number"
-            className='form-control'
-            name="sueldo_total"
-            value={state.sueldo_total}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="fijos">
-          <h2>Gastos Fijos</h2>
-
-          <div className="alquiler">
-            <h5>Alquiler</h5>
+        <h1>Editar Gestion Mensual</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="nombre-mes">
+            <h5>Mes</h5>
             <input
-              type="number"
+              type="text"
               className='form-control'
-              name="alquiler"
-              value={state.alquiler}
-              onChange={handleInputChange}
+              name="nombre"
+              value={state.nombre}
+              onChange={handleNombreChange}
             />
-        </div>
+          </div>
 
-        <div className="expensas">
-            <h5>Expensas</h5>
+          <div className="total">
+            <h5>Sueldo</h5>
             <input
               type="number"
               className='form-control'
-              name="expensas"
-              value={state.expensas}
-              onChange={handleInputChange}
-            />
-        </div>
-
-        <div className="gasto_comida">
-            <h5>Comida</h5>
-            <input
-              type="number"
-              className='form-control'
-              name="gasto_comida"
-              value={state.gasto_comida}
+              name="sueldo_total"
+              value={state.sueldo_total}
               onChange={handleInputChange}
             />
           </div>
 
-          <div className="gasto_agua">
-            <h5>Agua</h5>
-            <input
-              type="number"
-              className='form-control'
-              name="gasto_agua"
-              value={state.gasto_agua}
-              onChange={handleInputChange}
-            />
+          <div className="fijos">
+            <h2>Gastos Fijos</h2>
+
+            <div className="alquiler">
+              <h5>Alquiler</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="alquiler"
+                value={state.alquiler}
+                onChange={handleInputChange}
+              />
           </div>
 
-          <div className="gasto_gas">
-            <h5>Gas</h5>
-            <input
-              type="number"
-              className='form-control'
-              name="gasto_gas"
-              value={state.gasto_gas}
-              onChange={handleInputChange}
-            />
+          <div className="expensas">
+              <h5>Expensas</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="expensas"
+                value={state.expensas}
+                onChange={handleInputChange}
+              />
           </div>
 
-          <div className="gasto_luz">
-            <h5>Luz</h5>
-            <input
-              type="number"
-              className='form-control'
-              name="gasto_luz"
-              value={state.gasto_luz}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="wifi">
-            <h5>Wifi</h5>
-            <input
-              type="number"
-              className='form-control'
-              name="wifi"
-              value={state.wifi}
-              onChange={handleInputChange}
-            />
-          </div>
-            <div className='centrado'>
-                <h4>Resto: {state.resto}</h4> 
+          <div className="gasto_comida">
+              <h5>Comida</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="gasto_comida"
+                value={state.gasto_comida}
+                onChange={handleInputChange}
+              />
             </div>
-        </div>
 
-        <div className='container centrado'>
-          <button type='submit' className='btn btn-success'>Actualizar</button>
-        </div>
-      </form>
+            <div className="gasto_agua">
+              <h5>Agua</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="gasto_agua"
+                value={state.gasto_agua}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="gasto_gas">
+              <h5>Gas</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="gasto_gas"
+                value={state.gasto_gas}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="gasto_luz">
+              <h5>Luz</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="gasto_luz"
+                value={state.gasto_luz}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="wifi">
+              <h5>Wifi</h5>
+              <input
+                type="number"
+                className='form-control'
+                name="wifi"
+                value={state.wifi}
+                onChange={handleInputChange}
+              />
+            </div>
+              <div className='centrado'>
+                  <h4>Resto: {state.resto}</h4> 
+              </div>
+          </div>
+
+          <div className='container centrado'>
+            <button type='submit' className='btn btn-success'>Actualizar</button>
+          </div>
+        </form>
       </div>
       
       <div className="card-2">
@@ -229,19 +233,26 @@ const EditMesPage = () => {
 
         <div className='gasto-container'>
           <div className='listado-gastos'>
-            {
-              gastos.map(gasto => (
-                <div className='card-3 card-container' key={gasto.id}>
-                    <div>
-                      <h6> {gasto.nombre} </h6>
-                      <h6> ${gasto.cantidad} </h6>
-                    </div>
-                    <div>
-                      
-                    </div>
+          {gastosDelMes.length > 0 ? (
+            gastosDelMes.map((gasto) => (
+              <div className="card-3 card-container flex-container" key={gasto.id}>
+                <div>
+                  <h6> {gasto.nombre} </h6>
+                  <h6> ${gasto.cantidad} </h6>
                 </div>
-              ))
-            }
+                <div>
+                  <div className="delete" onClick={()=>{navigate('')}}>
+                    <img src={deleteGasto} alt="" />
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="centrado">
+              <h4>No hay gastos para este mes.</h4>
+            </div>
+          )}
+          
           </div>
         </div>
 
