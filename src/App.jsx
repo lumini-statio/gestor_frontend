@@ -7,6 +7,7 @@ import Mes from './components/Mes';
 import EditMesPage from './components/editarMes';
 import CrearGastoForm from './components/crearGasto';
 import Footer from './components/Footer';
+import VerGasto from './components/verGasto';
 
 function App() {
 
@@ -19,10 +20,11 @@ function App() {
       <main>
         <Routes>
           <Route path='/crear-mes' element={<Main/>} />
-          <Route path='/' element={<Elements/>} />
+          <Route path='/meses' element={<Elements/>} />
           <Route path='/mes/:id' element={<Mes/>} />
           <Route path='/edit/:id' element={<EditMesPage/>} />
           <Route path='/mes/:id/crear-gasto' element={<CrearGastoForm/>} />
+          <Route path='/mes/:mesId/gasto/:gastoId' element={<VerGasto/>} />
         </Routes>
       </main>
       <footer>

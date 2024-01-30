@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getMes, actualizarMes } from '../api/meses.api';
 import addImg from '../../src/img/add.png';
-import deleteGasto from '../../src/img/delete.png';
-import { getAllGastos } from '../api/gastos.api';
+import borrarImg from '../../src/img/delete.png';
+import atrasImg from '../../src/img/atras.png';
+import { getAllGastos, deleteGasto } from '../api/gastos.api';
 
 const EditMesPage = () => {
   const [state, setState] = useState({
@@ -24,39 +25,6 @@ const EditMesPage = () => {
   const [gastosDelMes, setGastosDelMes] = useState([])
   const navigate = useNavigate();
   const params = useParams();
-
-  useEffect(() => {
-    async function cargarMes() {
-      if (params.id) {
-        try {
-          const response = await getMes(params.id);
-          setState(response.data);
-          console.log(response.data)
-        } catch (error) {
-          console.error('Error al cargar datos del mes', error);
-        }
-      }
-    }
-    async function cargarGastos() {
-      if (params.id) {
-        try {
-          const res = await getAllGastos();
-          console.log('res', res)
-          const gastosDelMes = res.data.filter((gasto) => gasto.mes == params.id);
-          setGastosDelMes(gastosDelMes);
-          for (let i = 0; i < gastosDelMes.length; i++) {
-            totalGastos += parseFloat(gastosDelMes[i].cantidad);
-            setGastosTotales(totalGastos)
-          }
-        } catch (error) {
-          console.error('Error al cargar los gastos', error);
-        }
-      }
-    }
-    cargarMes();
-    cargarGastos();
-    console.log(gastosDelMes)
-  }, []);
 
   const handleInputChange=(e)=>{
     const {name, value} = e.target;
@@ -85,7 +53,61 @@ const EditMesPage = () => {
     }
   };
 
+  const handleDeleteGasto = async (gastoId) => {
+    try{
+      await deleteGasto(gastoId);
+      setGastos(getAllGastos())
+      }
+    catch (error){
+      console.error('Error al eliminar el gasto', error)
+    }
+
+  }
+
   useEffect(() => {
+    async function cargarMes() {
+      if (params.id) {
+        try {
+          const response = await getMes(params.id);
+          setState(response.data);
+          console.log('getMes',response.data)
+        } catch (error) {
+          console.error('Error al cargar datos del mes', error);
+        }
+      }
+    }
+    cargarMes();
+    console.log('gastos del mes',gastosDelMes)
+  }, []);
+
+  useEffect(()=>{
+    async function cargarGastos() {
+      if (params.id) {
+        try {
+          const res = await getAllGastos()
+          console.log('getAllGastos', res.data)
+          const gastosDelMes = res.data.filter((gasto) => gasto.mes == params.id);
+          setGastosDelMes(gastosDelMes);
+          for (let i = 0; i < gastosDelMes.length; i++) {
+            let totalGastos = parseFloat(gastosDelMes[i].cantidad) + gastosTotales;
+            setGastosTotales(totalGastos)
+          }
+        } catch (error) {
+          console.error('Error al cargar los gastos', error);
+        }
+      }
+    }
+    cargarGastos();
+  },[gastos])
+
+  useEffect(() => {
+    let totalGastos = 0;
+    for (let i = 0; i < gastosDelMes.length; i++) {
+      totalGastos += parseFloat(gastosDelMes[i].cantidad);
+    }
+
+    setGastosTotales(totalGastos);
+
     const numericResultado = parseFloat(state.resultado) || 0;
     const numericAgua = parseFloat(state.gasto_agua) || 0;
     const numericGas = parseFloat(state.gasto_gas) || 0;
@@ -94,25 +116,37 @@ const EditMesPage = () => {
     const numericExpensas = parseFloat(state.expensas) || 0;
     const numericAlquiler = parseFloat(state.alquiler) || 0;
     const numericWifi = parseFloat(state.wifi) || 0;
-  
-    if (!isNaN(numericResultado) &&
-        !isNaN(numericAgua) &&
-        !isNaN(numericGas) &&
-        !isNaN(numericLuz) &&
-        !isNaN(numericComida) &&
-        !isNaN(numericExpensas) &&
-        !isNaN(numericAlquiler) &&
-        !isNaN(numericWifi)) {
-  
-      const gastos = numericResultado - (numericAgua + numericGas + numericLuz + numericComida + numericExpensas + numericAlquiler + numericWifi);
-      setState((prev) => ({ ...prev, resto: parseFloat(gastos) - gastosTotales}));
-    }
-        console.log(state)
-  }, [state.resultado, state.gasto_gas, state.gasto_luz, state.gasto_agua, state.gasto_comida, state.expensas, state.alquiler, state.wifi]);
 
+    if (
+      !isNaN(numericResultado) &&
+      !isNaN(numericAgua) &&
+      !isNaN(numericGas) &&
+      !isNaN(numericLuz) &&
+      !isNaN(numericComida) &&
+      !isNaN(numericExpensas) &&
+      !isNaN(numericAlquiler) &&
+      !isNaN(numericWifi)
+    ) {
+      const gastosResto =
+        numericResultado -
+        (numericAgua +
+          numericGas +
+          numericLuz +
+          numericComida +
+          numericExpensas +
+          numericAlquiler +
+          numericWifi) -
+        totalGastos;
+      setState((prev) => ({ ...prev, resto: parseFloat(gastosResto) }));
+    }
+  }, [gastosDelMes, state.alquiler, state.expensas, state.gasto_agua, state.gasto_comida, state.gasto_gas, state.gasto_luz, state.nombre, state.resto, state.resultado, state.sueldo_total, state.wifi]);
   return (
     <div>
+      <div className='atras py-3'>
+        <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/mes/${params.id}`)}}/>
+      </div>
       <div className='card-2'>
+        <div>
         <h1>Editar Gestion Mensual</h1>
         <form onSubmit={handleSubmit}>
           <div className="nombre-mes">
@@ -237,14 +271,16 @@ const EditMesPage = () => {
           <div className='listado-gastos'>
           {gastosDelMes.length > 0 ? (
             gastosDelMes.map((gasto) => (
-              <div className="card-3 card-container flex-container" key={gasto.id}>
+              <div className="card-3 card-container flex-container" onClick={()=>{
+                navigate(`/gasto/${gastoId}`)
+              }} key={gasto.id}>
                 <div>
-                  <h6> {gasto.nombre} </h6>
-                  <h6> ${gasto.cantidad} </h6>
+                  <h5> {gasto.nombre} </h5>
+                  <h5> ${gasto.cantidad} </h5>
                 </div>
                 <div>
-                  <div className="delete" onClick={()=>{navigate('')}}>
-                    <img src={deleteGasto} alt="" />
+                  <div className="delete">
+                    <img src={borrarImg} alt="eliminar gasto" className='mx-3' onClick={()=> handleDeleteGasto(gasto.id)}/>
                   </div>
                 </div>
               </div>
@@ -260,7 +296,9 @@ const EditMesPage = () => {
 
         <div>
 
+        </div>  
         </div>
+        
       </div>
     </div>
   );

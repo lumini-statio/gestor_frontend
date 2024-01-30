@@ -46,7 +46,7 @@ const Main = () => {
     } else {
       await enviarDatosAlBackend();
     }
-    navigate('/');
+    navigate('/meses');
   };
 
   useEffect(() => {

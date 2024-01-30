@@ -99,6 +99,7 @@ body {
 }
 
 .header {
+    width: 100vh;
     background: #f0f0f0;
     display: flex;
     border-radius: 5px;
@@ -174,14 +175,14 @@ button {
     padding-right: 7.5px;
 }
 
-.card-3 h6 {
+.card-3 div h5 {
     display: inline;
 }
 
-.felx-container {
+.flex-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .flex-container div {
@@ -193,6 +194,8 @@ button {
     align-items: end;
 }
 
-.delete {
+.ver img,
+.atras img,
+.delete img {
     cursor: pointer;
 }

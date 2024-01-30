@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className='header navbar navbar-expand-lg rounded'>
           <div className='link navbar-brand' onClick={()=>{
-            navigate('/')
+            navigate('/meses')
           }}>
           <h3 className='link-text'>Home</h3>
           </div>

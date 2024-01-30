@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllMeses } from './../api/meses.api';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CrearGastoForm = () => {
   const [data, setData] = useState({
@@ -12,8 +12,8 @@ const CrearGastoForm = () => {
   });
   const [meses, setMeses] = useState([]);
   const [mesId, setMesId] = useState('');
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const params = useParams();
   useEffect(() => {
     fetchMeses();
   }, []);
@@ -48,7 +48,7 @@ const CrearGastoForm = () => {
     try {
       const res = await axios.post('http://localhost:8000/api/guardar_gastos/', data);
       console.log('Respuesta del backend:', res.data);
-      navigate('/')
+      navigate(`/edit/${params.id}`)
     } catch (error) {
       console.error('Error al crear el gasto', error);
     }
