@@ -23,14 +23,14 @@ const VerGasto = () => {
     };
 
     extraerGastos();
-  }, [numericGastoId]); // Asegúrate de incluir numericGastoId en la dependencia
-
+  }, [numericGastoId]);
+  
   return (
     <div>
         <div className='atras py-3'>
             <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/mes/${numericMesId}`)}}/>
         </div>
-        
+
         <div className="card-2">
 
             <h1 className='py-3'>Nombre: {gasto.nombre}</h1>
