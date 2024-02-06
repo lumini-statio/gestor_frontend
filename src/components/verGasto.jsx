@@ -36,13 +36,13 @@ const VerGasto = () => {
             <h1 className='py-3'>Nombre: {gasto.nombre}</h1>
             {
                 gasto.descripcion ? (
-                    <h3 className='py-3'>Descripcion: "{gasto.descripcion}" </h3>
+                    <h3 className='py-3 centrado descripcion'>Descripcion: "{gasto.descripcion}" </h3>
                 )
                 : (
                     <h3 className='py-3'>No hay Descripción</h3>
                 )
             }
-            <h3 className='py-3'>Gastado: {gasto.cantidad} </h3>
+            <h3 className='py-3'>Gastado: ${gasto.cantidad} </h3>
         </div>
     </div>
   )

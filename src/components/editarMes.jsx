@@ -116,6 +116,7 @@ const EditMesPage = () => {
     const numericExpensas = parseFloat(state.expensas) || 0;
     const numericAlquiler = parseFloat(state.alquiler) || 0;
     const numericWifi = parseFloat(state.wifi) || 0;
+    const numericSueldo = parseFloat(state.sueldo_total) || 0;
 
     if (
       !isNaN(numericResultado) &&
@@ -128,7 +129,7 @@ const EditMesPage = () => {
       !isNaN(numericWifi)
     ) {
       const gastosResto =
-        numericResultado -
+        numericSueldo -
         (numericAgua +
           numericGas +
           numericLuz +
@@ -159,7 +160,6 @@ const EditMesPage = () => {
               onChange={handleNombreChange}
             />
           </div>
-
           <div className="total">
             <h5>Sueldo</h5>
             <input
@@ -170,10 +170,8 @@ const EditMesPage = () => {
               onChange={handleInputChange}
             />
           </div>
-
           <div className="fijos">
             <h2>Gastos Fijos</h2>
-
             <div className="alquiler">
               <h5>Alquiler</h5>
               <input
@@ -184,7 +182,6 @@ const EditMesPage = () => {
                 onChange={handleInputChange}
               />
           </div>
-
           <div className="expensas">
               <h5>Expensas</h5>
               <input
@@ -195,7 +192,6 @@ const EditMesPage = () => {
                 onChange={handleInputChange}
               />
           </div>
-
           <div className="gasto_comida">
               <h5>Comida</h5>
               <input
@@ -206,7 +202,6 @@ const EditMesPage = () => {
                 onChange={handleInputChange}
               />
             </div>
-
             <div className="gasto_agua">
               <h5>Agua</h5>
               <input
@@ -217,7 +212,6 @@ const EditMesPage = () => {
                 onChange={handleInputChange}
               />
             </div>
-
             <div className="gasto_gas">
               <h5>Gas</h5>
               <input
@@ -228,7 +222,6 @@ const EditMesPage = () => {
                 onChange={handleInputChange}
               />
             </div>
-
             <div className="gasto_luz">
               <h5>Luz</h5>
               <input
@@ -239,7 +232,6 @@ const EditMesPage = () => {
                 onChange={handleInputChange}
               />
             </div>
-
             <div className="wifi">
               <h5>Wifi</h5>
               <input
@@ -254,19 +246,16 @@ const EditMesPage = () => {
                   <h4>Resto: {state.resto}</h4> 
               </div>
           </div>
-
           <div className='container centrado'>
             <button type='submit' className='btn btn-success'>Actualizar</button>
           </div>
         </form>
       </div>
-      
       <div className="card-2">
         <div className='centrado agregar-titulo'>
           <h2>Otros Gastos</h2>
           <img src={addImg} alt="añadir gasto" className='img-add' onClick={()=>{navigate(`/mes/${params.id}/crear-gasto`)}}/>
         </div>
-
         <div className='gasto-container'>
           <div className='listado-gastos'>
           {gastosDelMes.length > 0 ? (
@@ -290,15 +279,11 @@ const EditMesPage = () => {
               <h4>No hay gastos para este mes.</h4>
             </div>
           )}
-          
           </div>
         </div>
-
         <div>
-
         </div>  
         </div>
-        
       </div>
     </div>
   );
