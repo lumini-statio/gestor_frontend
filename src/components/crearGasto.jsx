@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllMeses } from './../api/meses.api';
+import atrasImg from '../../src/img/atras.png';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -56,7 +57,11 @@ const CrearGastoForm = () => {
   
 
   return (
-    <div className='card-2 centrado px-5'>
+    <div>
+      <div className='atras py-3'>
+        <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/edit/${params.id}`)}}/>
+      </div>
+      <div className='card-2 centrado px-5'>
       <h2>Crear Gasto</h2>
       <form>
         <label className='form-label'>Mes:</label>
@@ -83,6 +88,8 @@ const CrearGastoForm = () => {
             </button>
         </div>
       </form>
+  
+      </div>
     </div>
   );
 };

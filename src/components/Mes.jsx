@@ -1,7 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { deleteMes, getMes } from '../api/meses.api'
-import { getAllGastos, deleteGasto, getGasto } from '../api/gastos.api';
+import { getAllGastos } from '../api/gastos.api';
 import verImg from '../../src/img/ver.png';
 import atrasImg from '../../src/img/atras.png';
 
@@ -9,8 +9,10 @@ const Mes = () => {
 
     const params = useParams()
     const navigate = useNavigate()
+    const location = useLocation();
     const [mes, setMes] = useState({})
     const [gastosDelMes, setGastosDelMes] = useState([])
+    const [totalGastos, setTotalGastos] = useState(0)
 
     const borrarMes = async () => {
         const aceptado = window.confirm('está seguro que desea eliminar este més?')
@@ -24,41 +26,85 @@ const Mes = () => {
         if (params.id) {
             const res = await getMes(params.id)
             setMes(res.data)
-            console.log(mes)
+            console.log('Mes', mes)
         }
     }
+    cargarMes()
+  }, [])
+
+  useEffect(() => {
     async function cargarGastos() {
       if (params.id) {
         try {
           const res = await getAllGastos();
-          console.log('res', res)
+          console.log('res', res);
           const gastosDelMes = res.data.filter((gasto) => gasto.mes == params.id);
-          console.log('params.id',params.id)
+          let totalGastosMes = 0;
+          for (const gasto of gastosDelMes) {
+            totalGastosMes += parseFloat(gasto.cantidad);
+          }
+          setTotalGastos(parseFloat(totalGastosMes));
+
           setGastosDelMes(gastosDelMes);
-          console.log(gastosDelMes);
+          console.log('gastos del mes',gastosDelMes);
+          console.log('total gastos', totalGastos)
         } catch (error) {
           console.error('Error al cargar los gastos', error);
         }
       }
     }
-    cargarMes()
-    cargarGastos()
-  }, [])
 
-  const handleDeleteGasto = async (gastoId) => {
-    try{
-      await deleteGasto(gastoId);
-      setGastos(getAllGastos())
+    cargarGastos();
+  }, [params.id]);
+
+  const handleVerGasto = (gastoId) => {
+    navigate(`${location.pathname}/gasto/${gastoId}`);
+  }
+
+  const renderBarraPorcentaje = () => {
+    const porcentajes = {
+      alquiler: 0,
+      expensas: 0,
+      gasto_comida: 0,
+      gasto_agua: 0,
+      gasto_gas: 0,
+      gasto_luz: 0,
+      wifi: 0,
+      otros_gastos: 0,
+    };
+
+    if (typeof totalGastos === 'number' && totalGastos !== 0) {
+      for (const key in mes) {
+        if (
+          typeof mes[key] === 'string' &&
+          !isNaN(parseFloat(mes[key])) &&
+          key !== 'sueldo_total' &&
+          key !== 'resto' &&
+          key !== 'resultado'
+        ) {
+          porcentajes[key] = (parseFloat(mes[key]) / parseFloat(mes.sueldo_total)) * 100;
+        }
       }
-    catch (error){
-      console.error('Error al eliminar el gasto', error)
+      porcentajes.otros_gastos = (totalGastos / parseFloat(mes.sueldo_total)) * 100;
+      console.log('porcentajes', porcentajes)
     }
-
-  }
-
-  const handleVerGasto = () => {
-    navigate(`mes/${params.id}/gasto/${gasto.id}`)
-  }
+  
+    return (
+      <div className="bar-container">
+        {Object.entries(porcentajes).map(([key, porcentaje]) => (
+          <div className='bar-container'>
+            <hr />
+            <div className='barra-completa'>
+              <div key={key} className="bar" style={{ width: `${porcentaje || 0}%` }}></div>
+            </div>
+            <div className='porcentajes-container centrado'>
+            {`${key}: ${porcentaje ? porcentaje.toFixed(2) : 0}%`}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -75,7 +121,7 @@ const Mes = () => {
               <br />
               <h4 className='card-subtitle'>expensas:{mes.expensas}</h4>            
               <br />
-              <h4 className='card-subtitle'>gasto minimo en comida: {mes.gasto_comida}</h4>
+              <h4 className='card-subtitle'>comida: {mes.gasto_comida}</h4>
               <br />
               <h4 className='card-subtitle'>agua:{mes.gasto_agua}</h4>
               <br />
@@ -112,19 +158,27 @@ const Mes = () => {
                     <h6> ${gasto.cantidad} </h6>
                   </div>
                   <div className="ver">
-                  <img src={verImg} alt="ver más" onClick={()=>{navigate(`/mes/${params.id}/gasto/${gasto.id}/`)}}/>
+                    <img src={verImg} alt="ver más" onClick={()=>handleVerGasto(gasto.id)}/>
                   </div>
                   
               </div>
             ))
           ) : (
             <div className="centrado">
-              <h4>No hay gastos para este mes.</h4>
+              <h4>Edite este mes para agregar nuevos gastos</h4>
             </div>
           )}
           
           </div>
         </div>
+      </div>
+      <div className="card-2">
+        <div className="centrado">
+          <div className="card-title">
+            <h1>Porcentaje de gastos con respecto al sueldo</h1>
+          </div>
+        </div>
+        {renderBarraPorcentaje()}
       </div>
     </div>
   )
