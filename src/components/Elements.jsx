@@ -21,10 +21,13 @@ const Elements = () => {
       <div className='grid'>
         {meses.map(mes => (
           <div className='card card-container' key={mes.id}>
-            <div onClick={()=>{navigate(`/mes/${mes.id}`)}}>
-              <h1> {mes.nombre} </h1>
-              <h3> {mes.sueldo_total} </h3>
-              <h4> {mes.resto} </h4>
+            <div className='' onClick={()=>{navigate(`/mes/${mes.id}`)}}>
+              <div className='centrado'>
+                <h1> {mes.nombre} </h1>
+              </div>
+              <div className='centrado'>
+                <h3> {mes.sueldo_total} </h3>
+              </div>
             </div>
           </div>
         ))}
