@@ -155,6 +155,7 @@ button {
 
 .gasto-container-2 {
     background: #fff;
+    height: 55rem;
     width: 70%;
     height: 200px;
     border-radius: 5px;
@@ -231,4 +232,175 @@ button {
     background: #202020;
     width: 41rem;
     border-radius: 3px;
+}
+
+@media screen and (min-width: 1200px) {
+    .grid {
+        width: 60rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .card-2 {
+        width: 50rem;
+        padding: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .header {
+        width: 70rem;
+    }
+
+    .gasto-container {
+        width: 70%;
+        height: 500px;
+    }
+
+    .gasto-container-2 {
+        width: 70%;
+        height: 200px;
+    }
+
+    .bar {
+        width: 28rem;
+    }
+
+    .barra-completa {
+        width: 41rem;
+    }
+}
+
+/* Estilos para pantallas medianas */
+@media screen and (max-width: 1199px) {
+    .grid {
+        width: 40rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .card-2 {
+        width: 40rem;
+        padding: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .header {
+        width: 50rem;
+    }
+
+    .gasto-container {
+        width: 60%;
+        height: 500px;
+    }
+
+    .gasto-container-2 {
+        width: 60%;
+        height: 200px;
+    }
+
+    .bar {
+        width: 24rem;
+    }
+
+    .barra-completa {
+        width: 37rem;
+    }
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 767px) {
+    .grid {
+        width: 90%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .card-2 {
+        width: 90%;
+        padding: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .header {
+        width: 90%;
+    }
+
+    .gasto-container {
+        width: 90%;
+        height: 300px;
+    }
+
+    .gasto-container-2 {
+        width: 90%;
+        height: 200px;
+    }
+
+    .bar {
+        width: 18rem;
+    }
+
+    .barra-completa {
+        width: 31rem;
+    }
+}
+
+/* Estilos para pantallas extra pequeñas */
+@media screen and (max-width: 479px) {
+    .grid {
+        width: 90%;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card {
+        width: 17rem;
+    }
+
+    .card-2 {
+        width: 20rem;
+        padding: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gasto-container {
+        width: 90%;
+        height: 300px;
+    }
+
+    .gasto-container-2 {
+        width: 90%;
+        height: 200px;
+    }
+
+    .bar {
+        width: 18rem;
+    }
+
+    .bar-container {
+        width: 18rem;
+    }
+
+    .barra-completa {
+        width: 18rem;
+    }
 }

@@ -14,7 +14,7 @@ const Register = () => {
                 password,
             });
             console.log('register', response.data);
-            navigate('/meses')
+            navigate('/')
         } catch (error) {
             console.error(error);
         }
