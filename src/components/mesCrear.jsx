@@ -47,7 +47,7 @@ const MesCrear = () => {
     } else {
       await enviarDatosAlBackend();
     }
-    navigate('/meses');
+    navigate('/');
   };
 
   useEffect(() => {

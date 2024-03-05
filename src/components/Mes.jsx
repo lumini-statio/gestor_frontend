@@ -13,12 +13,13 @@ const Mes = () => {
     const [mes, setMes] = useState({})
     const [gastosDelMes, setGastosDelMes] = useState([])
     const [totalGastos, setTotalGastos] = useState(0)
+    const [listaNumeros, setListaNumeros] = useState([1,1])
 
     const borrarMes = async () => {
         const aceptado = window.confirm('está seguro que desea eliminar este més?')
         if (aceptado) {
           deleteMes(params.id)
-          navigate('/meses')
+          navigate('/')
         }
       }
   useEffect(()=>{
@@ -88,7 +89,7 @@ const Mes = () => {
       porcentajes.otros_gastos = (totalGastos / parseFloat(mes.sueldo_total)) * 100;
       console.log('porcentajes', porcentajes)
     }
-  
+
     return (
       <div className="bar-container">
         {Object.entries(porcentajes).map(([key, porcentaje]) => (
@@ -105,6 +106,21 @@ const Mes = () => {
       </div>
     );
   };
+  
+  useEffect(() => {
+    const fibonacci = () => {
+      let newListaNumeros = [1,1];
+  
+      for (let i = 2; i < 10; i++) {
+        let suma = newListaNumeros[i - 1] + newListaNumeros[i - 2];
+        newListaNumeros.push(suma);
+      }
+
+      console.log('fibonacci',newListaNumeros);
+    };
+  
+    fibonacci();
+  }, []);
 
   return (
     <div>
@@ -114,8 +130,8 @@ const Mes = () => {
       <div className="card-2 px-5">
         <h1 className='card-title'>{mes.nombre}</h1>
         <div>
-          <div>
-              <h2 className='card-subtitle'>Ingreso total:{mes.sueldo_total}</h2>
+          <div className='column'>
+              <h2 className='card-subtitle'>Ingreso:{mes.sueldo_total}</h2>
               <br />
               <h4 className='card-subtitle'>alquiler:{mes.alquiler}</h4>
               <br />
@@ -137,8 +153,8 @@ const Mes = () => {
         {
           params.id && 
           <div className="contenedor centrado">
-            <button className='btn btn-danger px-5' onClick={borrarMes}> Borrar </button>
-            <button className='btn btn-success px-5' onClick={()=>{
+            <button className='btn btn-danger px-3' onClick={borrarMes}> Borrar </button>
+            <button className='btn btn-success px-3' onClick={()=>{
 
               navigate(`/edit/${params.id}`
             )}}> Editar </button>
@@ -175,7 +191,8 @@ const Mes = () => {
       <div className="card-2">
         <div className="centrado">
           <div className="card-title">
-            <h1>Porcentaje de gastos con respecto al sueldo</h1>
+            <h1>Porcentaje de gastos</h1>
+            <h1>con respecto al sueldo</h1>
           </div>
         </div>
         {renderBarraPorcentaje()}

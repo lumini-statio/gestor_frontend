@@ -146,6 +146,7 @@ const EditMesPage = () => {
       <div className='atras py-3'>
         <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/mes/${params.id}`)}}/>
       </div>
+      <div>
       <div className='card-2'>
         <div>
         <h1>Editar Gestion Mensual</h1>
@@ -251,6 +252,8 @@ const EditMesPage = () => {
           </div>
         </form>
       </div>
+      </div>
+      
       <div className="card-2">
         <div className='centrado agregar-titulo'>
           <h2>Otros Gastos</h2>

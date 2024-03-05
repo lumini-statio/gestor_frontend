@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const gastosApi = axios.create({
-    baseURL: 'http://localhost:8000/api/v1/gastos/'
+    baseURL: 'https://gestor-backend-eight.vercel.app/gastos'
 })
 
 export const getAllGastos = () => gastosApi.get('/')

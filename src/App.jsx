@@ -8,33 +8,30 @@ import EditMesPage from './components/editarMes';
 import CrearGastoForm from './components/crearGasto';
 import Footer from './components/Footer';
 import VerGasto from './components/verGasto';
-import Register from './components/Register';
-import Login from './components/Login';
+
 
 function App() {
-
   return (
     <div>
-      <BrowserRouter>
-      <header>
-        <Header/>
-      </header>
-      <main className='centrado'>
-        <Routes>
-          <Route path='/crear-mes' element={<mesCrear/>} />
-          <Route path='/meses' element={<Elements/>} />
-          <Route path='/mes/:id' element={<Mes/>} />
-          <Route path='/edit/:id' element={<EditMesPage/>} />
-          <Route path='/mes/:id/crear-gasto' element={<CrearGastoForm/>} />
-          <Route path='/mes/:mesId/gasto/:gastoId' element={<VerGasto/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/login" element={<Login/>} />
-        </Routes>
-      </main>
-      <footer>
-        <Footer/>
-      </footer>
-    </BrowserRouter>
+        <BrowserRouter>
+        <header>
+          <Header/>
+        </header>
+        <main className='centrado'>
+          <Routes>
+            <Route path='/crear-mes' element={<MesCrear/>} />
+            <Route path='/' element={<Elements/>} />
+            <Route path='/mes/:id' element={<Mes/>} />
+            <Route path='/edit/:id' element={<EditMesPage/>} />
+            <Route path='/mes/:id/crear-gasto' element={<CrearGastoForm/>} />
+            <Route path='/mes/:mesId/gasto/:gastoId' element={<VerGasto/>} />
+          </Routes>
+        </main>
+        <footer>
+          <Footer/>
+        </footer>
+      </BrowserRouter>
+
     </div>
   )
 }
