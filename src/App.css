@@ -11,6 +11,17 @@ body {
     align-items: center;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img {
+    margin: 12px;
+}
+
 .grid {
     width: 60rem;
     border-radius: 5px;

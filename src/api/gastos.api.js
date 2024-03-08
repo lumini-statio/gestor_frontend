@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const gastosApi = axios.create({
-    baseURL: 'https://gestor-backend-eight.vercel.app/gastos'
+    baseURL: 'https://eluna2003.pythonanywhere.com/gastos/'
 })
 
 export const getAllGastos = () => gastosApi.get('/')

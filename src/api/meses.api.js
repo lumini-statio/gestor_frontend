@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const mesesApi = axios.create({
-    baseURL: 'https://gestor-backend-eight.vercel.app/meses/'
+    baseURL: 'https://eluna2003.pythonanywhere.com/meses/'
 })
 
 export const getAllMeses = () => mesesApi.get('/')
