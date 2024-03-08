@@ -125,7 +125,7 @@ const Mes = () => {
   return (
     <div>
       <div className='atras py-3'>
-        <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/meses`)}}/>
+        <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/`)}}/>
       </div>
       <div className="card-2 px-5">
         <h1 className='card-title'>{mes.nombre}</h1>

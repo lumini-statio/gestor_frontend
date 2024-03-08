@@ -33,7 +33,7 @@ const MesCrear = () => {
 
   const enviarDatosAlBackend = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/guardar_datos/', state);
+      const response = await axios.post('https://eluna2003.pythonanywhere.com/guardar_datos/', state);
       console.log('Respuesta del backend:', response.data);
     } catch (error) {
       console.error('Error al enviar datos al backend', error);

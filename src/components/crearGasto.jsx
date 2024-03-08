@@ -47,7 +47,7 @@ const CrearGastoForm = () => {
   
   const handleCrearGasto = async () => {
     try {
-      const res = await axios.post('http://localhost:8000/api/guardar_gastos/', data);
+      const res = await axios.post('https://eluna2003.pythonanywhere.com/guardar_gastos/', data);
       console.log('Respuesta del backend:', res.data);
       navigate(`/edit/${params.id}`)
     } catch (error) {
