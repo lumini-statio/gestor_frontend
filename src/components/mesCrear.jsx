@@ -34,7 +34,6 @@ const MesCrear = () => {
   const enviarDatosAlBackend = async () => {
     try {
       const response = await axios.post('https://eluna2003.pythonanywhere.com/guardar_datos/', state);
-      console.log('Respuesta del backend:', response.data);
     } catch (error) {
       console.error('Error al enviar datos al backend', error);
     }
@@ -64,7 +63,6 @@ const MesCrear = () => {
     async function cargarMes() {
       if (params.id) {
         const res = await getMes(params.id);
-        console.log(res);
       }
     }
     cargarMes();
@@ -73,7 +71,7 @@ const MesCrear = () => {
   return (
     <div>
       <div className='atras py-3'>
-        <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/meses`)}}/>
+        <img src={atrasImg} alt="atras" onClick={()=>{navigate(`/`)}}/>
       </div>
       <div className="card-2">
         <h1>Crear Gestion Mensual</h1>

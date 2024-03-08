@@ -27,7 +27,6 @@ const Mes = () => {
         if (params.id) {
             const res = await getMes(params.id)
             setMes(res.data)
-            console.log('Mes', mes)
         }
     }
     cargarMes()
@@ -38,7 +37,6 @@ const Mes = () => {
       if (params.id) {
         try {
           const res = await getAllGastos();
-          console.log('res', res);
           const gastosDelMes = res.data.filter((gasto) => gasto.mes == params.id);
           let totalGastosMes = 0;
           for (const gasto of gastosDelMes) {
@@ -47,8 +45,6 @@ const Mes = () => {
           setTotalGastos(parseFloat(totalGastosMes));
 
           setGastosDelMes(gastosDelMes);
-          console.log('gastos del mes',gastosDelMes);
-          console.log('total gastos', totalGastos)
         } catch (error) {
           console.error('Error al cargar los gastos', error);
         }
@@ -106,21 +102,6 @@ const Mes = () => {
       </div>
     );
   };
-  
-  useEffect(() => {
-    const fibonacci = () => {
-      let newListaNumeros = [1,1];
-  
-      for (let i = 2; i < 10; i++) {
-        let suma = newListaNumeros[i - 1] + newListaNumeros[i - 2];
-        newListaNumeros.push(suma);
-      }
-
-      console.log('fibonacci',newListaNumeros);
-    };
-  
-    fibonacci();
-  }, []);
 
   return (
     <div>
