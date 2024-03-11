@@ -13,15 +13,23 @@ const Mes = () => {
     const [mes, setMes] = useState({})
     const [gastosDelMes, setGastosDelMes] = useState([])
     const [totalGastos, setTotalGastos] = useState(0)
-    const [listaNumeros, setListaNumeros] = useState([1,1])
+    const [eliminado, setEliminado] = useState(false)
 
     const borrarMes = async () => {
-        const aceptado = window.confirm('está seguro que desea eliminar este més?')
-        if (aceptado) {
-          deleteMes(params.id)
-          navigate('/')
-        }
+      const aceptado = window.confirm('¿Está seguro que desea eliminar este mes?');
+      if (aceptado) {
+        await deleteMes(params.id);
+        setEliminado(true);
       }
+    }
+  
+    useEffect(() => {
+      if (eliminado) {
+        navigate('/')
+        window.location.reload();
+      }
+    }, [eliminado]);
+
   useEffect(()=>{
     async function cargarMes() {
         if (params.id) {
@@ -136,7 +144,6 @@ const Mes = () => {
           <div className="contenedor centrado">
             <button className='btn btn-danger px-3' onClick={borrarMes}> Borrar </button>
             <button className='btn btn-success px-3' onClick={()=>{
-
               navigate(`/edit/${params.id}`
             )}}> Editar </button>
           </div>

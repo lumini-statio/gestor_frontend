@@ -19,7 +19,7 @@ const Elements = () => {
   return (
     <div className='flex'>
       <div className='grid'>
-        {meses.map(mes => (
+        {meses.length > 0 ? meses.map(mes => (
           <div className='card card-container' key={mes.id}>
             <div className='' onClick={()=>{navigate(`/mes/${mes.id}`)}}>
               <div className='centrado'>
@@ -30,7 +30,11 @@ const Elements = () => {
               </div>
             </div>
           </div>
-        ))}
+        )) :
+        <div className='card card-container centrado'>
+          <h2>No hay gestión de meses todavía</h2>
+        </div>
+        }
       </div>
     </div>
   )
